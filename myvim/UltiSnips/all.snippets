@@ -1,0 +1,46 @@
+snippet "tex(temp(late)?)?" "LaTeX Template" br
+\documentclass[12pt, reqno, en]{amsart}
+%en/zh: english/chinese
+%need to change amsart/ctexart
+%presubmit: show labels in margin
+%\usepackage{mpgraphics}
+%\NoProcess[1-2]
+% Packages{{{2
+\usepackage{enumerate}
+\usepackage[ocgcolorlinks]{hyperref}
+\hypersetup{
+  pdfstartview=FitH,
+  bookmarksopen=false,
+  pdfencoding=auto,
+  colorlinks=false,
+  linkcolor=blue,
+  pdfinfo={
+    %Subject={35J60, 35B99},
+    %Keywords={polyharmonic maps, Coulomb gauge, blow-up analysis}%
+  }
+}
+\usepackage[backrefs, msc-links, lite, abbrev, alphabetic]{amsrefs} 
+%citation-order(sort by the order of appearance in article)
+%author-year
+%alphabetic(no sort support sort in \citelist)
+%numeric (default & work for sort)
+%y2k: use full year for alphabetic sort in bibliography
+% User General Setting{{{2
+\renewcommand{\theenumi}{\roman{enumi}}%
+\numberwithin{equation}{section}
+% User Template Setting{{{2
+\input{../Template/usrdefn}
+% User Setting for This Doc{{{2
+% add newcommand
+% The MakeTitle Info{{{2
+\title{${1:The Title}}
+\author{Van Abel}
+\date{\today}
+\begin{document}
+\maketitle
+	${2: The Contents}
+	% The Bibgraphy Info{{{2
+  %\nocite{*}
+  %\bibliography{bib/your-ref-database}
+\end{document}
+endsnippet

@@ -1,0 +1,206 @@
+#priority 0
+extends texmath
+extends latex
+#user defined
+
+snippet \au{ "\autoref{} " iA
+\autoref{$1}
+endsnippet
+
+snippet "\\eq{" "\eqref{} " irA
+\eqref{$1}
+endsnippet
+
+snippet $$ "insert inline math" iA
+\$$1\$$0
+endsnippet
+snippet <<>> "inner product" iA
+\left\langle $1 \right\rangle
+endsnippet
+snippet dunhao "dun hao" iA
+、
+endsnippet
+snippet () "()" iA
+($1)$0
+endsnippet
+snippet [] "[]" iA
+[$1]$0
+endsnippet
+snippet {} "{}" iA
+{$1}$0
+endsnippet
+snippet (( "big ()" iA
+\left( ${1:${VISUAL}} \right)$0
+endsnippet
+snippet [[ "big []" iA
+\left[ ${1:${VISUAL}} \right]$0
+endsnippet
+snippet {{ "big {}" iA
+\left\\{ ${1:${VISUAL}} \right\\}$0
+endsnippet
+snippet .| "\left. \right|" iA
+\left. ${1:${VISUAL}} \right\rvert$0
+endsnippet
+snippet |. "\left| \right." iA
+\left\lvert ${1:${VISUAL}} \right.$0
+endsnippet
+snippet && "<tab>& = " iA
+  & ${1:=} $2	\\\\
+endsnippet
+snippet __ "lowerscript _{}" iA
+_{$1}$0
+endsnippet
+snippet ^^ "superscript ^{}" iA
+^{${1:{VISUAL}}}$0
+endsnippet
+snippet || "abs | |" iA
+|${1:${VISUAL}}|$0
+endsnippet
+snippet \| "norm \| \|" iA
+\|${1:${VISUAL}}\|$0
+endsnippet
+snippet \[ "insert display math" bA
+\[
+  ${1:${VISUAL}}
+\]$0
+endsnippet
+snippet \sum "\sum_{}" iA
+\sum_{$1}$0
+endsnippet
+snippet \vsum "\sum_{}^{}" iA
+\sum_{$1}^{$2}$0
+endsnippet
+snippet \int "\int_{}" i
+\int_{$1}$0
+endsnippet
+snippet \vint "\int_{}^{}" iA
+\int_{$1}^{$2}$0
+endsnippet
+#redefine \begin{equation}
+snippet "eq(uation)?" "\begin{equation}...\end{equation}" br
+\begin{equation}\label{eq:$1}
+	${2:${VISUAL}}
+\end{equation}$0
+endsnippet
+#snippet "be(gin)?( (\S+))?" "begin{} / end{}" br
+#\begin{${1:`!p
+#condi = match.group(2) is not None and match.group(3) != 'proof'
+#snip.rv = match.group(3) if match.group(2) is not None else "something"`}} ${2:`!p if condi:
+#	snip.rv = '\label{'+t[1]+':'`$4`!p
+#if condi: 
+#	snip.rv ='}'`}
+#	${3:${VISUAL}}
+#\end{$1}$0
+#endsnippet
+snippet nc "New command" b
+\newcommand{\\${1:cmd}}[${2:options}]{${3:command}}
+endsnippet
+snippet env "Package" b
+\newenvironment{${1:env}}${4:[${5:options}]}{${2:begin}}{${3:end}}
+endsnippet
+# font types {{{
+snippet ul "underline" w
+\underline{${VISUAL}${1}}
+endsnippet
+
+snippet em "emphasis" w
+\emph{${VISUAL}${1}}${2}
+endsnippet
+
+snippet te "text" w
+\text{${VISUAL}$1}
+endsnippet
+
+snippet tit "italic" w
+\textit{${VISUAL}${1}}${2}
+endsnippet
+
+snippet tbf "bold" w
+\textbf{${VISUAL}${1}}${2}
+endsnippet
+
+snippet trm "roman" w
+\textrm{${VISUAL}${1}}${2}
+endsnippet
+
+snippet tsc "small capitals" w
+\textsc{${VISUAL}${1}}${2}
+endsnippet
+
+snippet tsf "sans serif" w
+\textsf{${VISUAL}${1}}${2}
+endsnippet
+
+snippet ttt "teletype" w
+\texttt{${VISUAL}${1}}${2}
+endsnippet
+
+snippet mbf "math bold" w
+\mathbf{${VISUAL}${1}}${2}
+endsnippet
+
+snippet mca "math calligraphy" wA
+\mathcal{${VISUAL}${1}}${2}
+endsnippet
+
+snippet M "math calligraphy" w
+\mc{${VISUAL}${1}}${2}
+endsnippet
+
+snippet mbb "math blackbord bold" wA
+\mathbb{${VISUAL}${1}}${2}
+endsnippet
+
+snippet mit "math italic" wA
+\mathit{${VISUAL}${1}}${2}
+endsnippet
+
+snippet mfr "math frak" wA
+\mathfrak{${VISUAL}${1}}${2}
+endsnippet
+
+snippet mrm "math roman" wA
+\mathrm{${VISUAL}${1}}${2}
+endsnippet
+
+snippet msf "math sans serif" wA
+\mathsf{${VISUAL}${1}}${2}
+endsnippet
+
+snippet mtt "math teletype" wA
+\mathtt{${VISUAL}${1}}${2}
+endsnippet
+
+snippet msc "math script" wA
+\mathscr{${VISUAL}${1}}${2}
+endsnippet
+
+snippet mpt "math punct" wA
+\mathpunct{:}
+endsnippet
+
+snippet eqdef "eqdef" wA
+\mathpunct{:}=
+endsnippet
+# }}}
+
+# Math Symbol{{{
+snippet emt "\hookrightarrow" wA
+\hookrightarrow$0
+endsnippet
+#}}}
+
+# Beamer{{{
+snippet bframe "begin frame with title" wA
+\begin{frame}{$1}
+	${2:${VISUAL}}
+\end{frame}$0
+endsnippet
+#}}}
+# Macrocode{{{
+snippet "ma(crocode)?" "surround with macrocode environment" brA
+%    \begin{macrocode}
+${1:${VISUAL}}
+%    \end{macrocode}
+endsnippet
+# }}}
