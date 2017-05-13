@@ -7,7 +7,7 @@ let $USRHOME = $VIM.'/myvim'
 " }
 " Add custom runtimepath {
 if has('win32') || has('win64')
-  let &rtp .=','.$VIM.'/myvim/,'.$VIM.'/myvim/color,'.$VIM.'/myvim/after'
+  let &rtp .=','.$VIM.'/myvim/,'.$VIM.'/myvim/after'
 endif
 " }
 " General vim configure {
@@ -46,12 +46,15 @@ set fillchars=vert:\|,fold:-
 " }
 " }
 " Color scheme {
-"colo darkblue
+if !isdirectory($VIM.'/myvim/colors')
+  colo darkblue
+else
 "colo phd
 colo solarized
 set background =dark
 "colo molokai
 "let g:molokai_original = 1
+endif
 " }
 " Encodings {
 "  Encoding for file
@@ -116,6 +119,9 @@ let g:vimtex_fold_enabled =1
 "au FileType tex let g:tex_fold_enabled =1 
 " we don't want fold too much
 au FileType tex setlocal foldlevel=2
+" Also fold command
+"let g:vimtex_fold_preamble =0
+"let g:vimtex_fold_comments = 1
 " }
 " Add more fold by TexNewMathZones {
 " see :h tex-math
@@ -126,6 +132,7 @@ au FileType tex let b:tex_stylish=1
 " }
 " }
 " Advanced Config for VimTeX {
+if isdirectory($VIM.'/myvim/plugged/vimtex')
 " viewer comfig {
 let g:vimtex_view_general_viewer = 'SumatraPDF'
 let g:vimtex_view_general_options
@@ -191,6 +198,7 @@ call vimtex#imaps#add_map({
       \	'wrapper' : 'vimtex#imaps#wrap_math'
       \})
 " }
+endif
 " }
 " Custom Config for TeX {
 " Open bib (./bib/jobname) {
@@ -424,7 +432,9 @@ if has('statusline')
   set statusline +=[%n]\                            " Buffer number
   set statusline +=%<%f\                            " Filename
   set statusline +=%w%h%m%r                         " Options
-  set statusline +=%{fugitive#statusline()}         " Git Hotness
+  if isdirectory($VIM.'/myvim/plugged/vim-fugitive')
+    set statusline +=%{fugitive#statusline()}         " Git Hotness
+  endif
   set statusline +=\ %{'['.(&fenc!=''?&fenc:&enc)}  " File encoding
   set statusline +=%{(&bomb?\"/BOM\":\"/NOBOM/\")}  " BOM or not
   set statusline +=%{&ff}/%Y]                       " Filetype
