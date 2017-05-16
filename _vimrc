@@ -95,7 +95,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'xolox/vim-session'
 Plug 'xolox/vim-misc'
 " for fullscreen
-Plug 'xolox/vim-shell'
+"Plug 'xolox/vim-shell'
 " for more default snippets
 "Plug 'honza/vim-snippets'
 "Plug 'ajh17/VimCompletesMe'
@@ -116,6 +116,7 @@ au FileType tex let g:tex_isk='48-57,_,:,-,a-z,A-Z,192-255'
 " }
 " Enable TeX fold {
 let g:vimtex_fold_enabled =1
+let g:vimtex_fold_comments =1
 "au FileType tex let g:tex_fold_enabled =1 
 " we don't want fold too much
 au FileType tex setlocal foldlevel=2
@@ -156,6 +157,12 @@ let g:vimtex_quickfix_latexlog= {
       \ },
       \}
 let g:vimtex_compiler_latexmk = {
+    \ 'backend' : 'jobs',
+    \ 'background' : 1,
+    \ 'build_dir' : '',
+    \ 'callback' : 1,
+    \ 'continuous' : 1,
+    \ 'executable' : 'latexmk',
       \ 'options' : [
       \   '-xelatex',
       \   '-verbose',
@@ -203,7 +210,11 @@ endif
 " Custom Config for TeX {
 " Open bib (./bib/jobname) {
 "map <Leader>lb :silent exec 'tabnew %:h/bib/%:t:r.bib'<cr>
-map <Leader>lb :silent exec "tabnew %:p:h/bib/*.bib"<tab><cr>
+if !empty(glob('%:p:h/bib'))
+  map <Leader>lb :silent exec "tabnew %:p:h/bib/*.bib"<tab><cr>
+else
+  map <Leader>lb :silent exec "tabnew %:p:h/*.bib"<tab><cr>
+endif
 " }
 " 7z {
 map <Leader>lz :silent exec "!cd %:p:h/../ & 7z u -tzip %:t:r usrdefn.tex %:h:t/%:t:r.tex %:h:t/%:t:r.pdf %:h:t/%:t:r.synctex.gz %:h:t/bib/%:t:r.bib >".$USRHOME."/temp/7z.log 2>&1"<cr><cr>
@@ -339,7 +350,7 @@ endfunction
 if has("gui_running") 
   "au CursorMoved *.tex call Texlivepreview()
   "au CursorMovedI *.tex call Texlivepreview()
-  au CursorHoldI,CursorHold *.tex call Texlivepreview()
+  "au CursorHold *.tex call Texlivepreview()
 endif
 " }
 " Autoinstall missing package {
@@ -407,7 +418,7 @@ let g:shell_fullscreen_message =get(g:,'shell_fullscreen_message',0)
 autocmd BufNewFile,BufReadPost,BufEnter *.tex 
       \ set spell |
       \ if has("gui_running") |
-"      \ 	set lines=99 columns=133 |
+      \ 	set lines=12 columns=133 |
       \ 	winpos 0 0	|
       \ endif
 " }
@@ -451,3 +462,4 @@ augroup myvimrc
 augroup END
 " }
 " }
+
